@@ -8,7 +8,7 @@ def list_books(request):
     Function-based view to display all books in the database.
     """
     books = Book.objects.all()  # Query all books
-    return render(request, 'list_books.html', {'books': books})
+    return render(request, 'relationship_app/list_books.html', {'books': books})
 
 class LibraryDetailView(DetailView, ListView):
     """
@@ -16,5 +16,5 @@ class LibraryDetailView(DetailView, ListView):
     including all books available in it.
     """
     model = Library
-    template_name = 'library_detail.html'
+    template_name = 'relationship_app/library_detail.html'
     context_object_name = 'library' 
