@@ -1,3 +1,20 @@
 from django.shortcuts import render
+from .models import Book
+from django.views.generic import DetailView, ListView
+from .models import Library
 
-# Create your views here.
+def list_books(request):
+    """
+    Function-based view to display all books in the database.
+    """
+    books = Book.objects.all()  # Query all books
+    return render(request, 'list_books.html', {'books': books})
+
+class LibraryDetailView(DetailView, ListView):
+    """
+    Class-based view to display details of a specific library
+    including all books available in it.
+    """
+    model = Library
+    template_name = 'library_detail.html'
+    context_object_name = 'library' 
