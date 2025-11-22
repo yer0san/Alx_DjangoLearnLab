@@ -123,3 +123,14 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'bookshelf.CustomUser'
+
+DEBUG = False 
+
+# Browser protections
+SECURE_BROWSER_XSS_FILTER = True      # X-XSS-Protection: 1; mode=block
+SECURE_CONTENT_TYPE_NOSNIFF = True    # X-Content-Type-Options: nosniff
+X_FRAME_OPTIONS = 'DENY'              # Prevent clickjacking. Alternatives: 'SAMEORIGIN'
+
+# Cookies: ensure cookies are only sent via HTTPS in production
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

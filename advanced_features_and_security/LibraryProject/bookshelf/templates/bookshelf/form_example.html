@@ -1,0 +1,8 @@
+<form method="post" action="{% url 'create_book' %}">
+  {% csrf_token %}
+  <label for="title">Title</label>
+  <input id="title" name="title" type="text" required>
+  <label for="author">Author</label>
+  <input type="text" id="author" name="author" required>
+  <button type="submit">Create</button>
+</form>

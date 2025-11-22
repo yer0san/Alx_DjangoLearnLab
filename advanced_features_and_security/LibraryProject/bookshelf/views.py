@@ -1,11 +1,19 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Book
+from .forms import ExampleForm
 
 @permission_required("bookshelf.can_view", raise_exception=True)
 def book_list(request):
+    form = ExampleForm(request.GET or None)
     books = Book.objects.all()
-    return render(request, "bookshelf/book_list.html", {'books': books})
+
+    if form.is_valid():
+        q = form.cleaned_data.get('q')
+        if q:
+            books = books.filter(title__icontains=q)
+
+    return render(request, "bookshelf/book_list.html", {'books': books, 'form' : form})
 
 @permission_required("bookshelf.can_create", raise_exception=True)
 def create_book(request):
