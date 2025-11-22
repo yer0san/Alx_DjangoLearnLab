@@ -134,3 +134,8 @@ X_FRAME_OPTIONS = 'DENY'              # Prevent clickjacking. Alternatives: 'SAM
 # Cookies: ensure cookies are only sent via HTTPS in production
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
+SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
