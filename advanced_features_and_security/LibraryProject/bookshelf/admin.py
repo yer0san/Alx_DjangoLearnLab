@@ -2,7 +2,7 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
-class ModelAdmin(UserAdmin):
+class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ('Additional Info', {
             'fields': ('date_of_birth', 'profile_photo')
@@ -15,5 +15,5 @@ class ModelAdmin(UserAdmin):
         }),
     )
 
-admin.site.register(CustomUser, ModelAdmin)
+admin.site.register(CustomUser, CustomUserAdmin)
 
