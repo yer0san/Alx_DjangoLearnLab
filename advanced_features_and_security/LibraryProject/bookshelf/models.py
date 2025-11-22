@@ -36,7 +36,6 @@ class CustomUserManager(BaseUserManager):
             **extra_fields
         )
 
-
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True, blank=True)
     profile_photo = models.ImageField(upload_to="static/", null=True, blank=True)
@@ -47,3 +46,17 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.username
+    
+class Book(models.Model):
+    book_name = models.TextField(max_length=100)
+    author = models.TextField(max_length=100)
+
+    class Meta:
+        permissions = [
+            ("can_view", "Can view book"),
+            ("can_create", "Can create book"),
+            ("can_edit", "Can edit book"),
+            ("can_delete", "Can delete book"),
+        ]
+
+
