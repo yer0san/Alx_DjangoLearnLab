@@ -1,6 +1,5 @@
 from rest_framework import generics
-from rest_framework.permissions import IsAdminUser
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.exceptions import ValidationError
 from .serializers import BookSerializer
 from .models import Book
@@ -8,7 +7,7 @@ from .models import Book
 class BookListView(generics.ListAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = []
+    permission_classes = [IsAuthenticatedOrReadOnly]
     filterset_fields = ["author", "publication_year"]
 
 class BookDetailView(generics.RetrieveAPIView):
@@ -18,7 +17,7 @@ class BookDetailView(generics.RetrieveAPIView):
 class BookCreateView(generics.CreateAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
 
     def perform_create(self, serializer):
         book = serializer.save()
@@ -42,4 +41,4 @@ class BookUpdateView(generics.UpdateAPIView):
 class BookDeleteView(generics.DestroyAPIView):
     queryset = Book.objects.all()
     serializer_class = BookSerializer
-    permission_classes = [IsAuthenticated, IsAdminUser]
+    permission_classes = [IsAuthenticated]
