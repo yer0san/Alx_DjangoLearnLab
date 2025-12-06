@@ -16,7 +16,7 @@ class ProfileUpdateForm(forms.ModelForm):
         model = User
         fields = ("username", "email", "first_name", "last_name")
 
-class CommentCreationForm(forms.ModelForm):
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']

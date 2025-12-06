@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .forms import ProfileUpdateForm
 from .forms import CustomUserCreationForm
-from .forms import CommentCreationForm
+from .forms import CommentForm
 from django.views import generic
 from django.urls import reverse_lazy, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -68,7 +68,7 @@ class PostDetailView(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context["comment_form"] = CommentCreationForm()
+        context["comment_form"] = CommentForm()
         return context
 
 
@@ -104,7 +104,7 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.DeleteView
 
 class CommentCreateView(LoginRequiredMixin, generic.CreateView):
     model = Comment
-    form_class = CommentCreationForm
+    form_class = CommentForm
 
     def form_valid(self, form):
         post = get_object_or_404(Post, pk=self.kwargs['pk'])
@@ -118,7 +118,7 @@ class CommentCreateView(LoginRequiredMixin, generic.CreateView):
 
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
     model = Comment
-    form_class = CommentCreationForm
+    form_class = CommentForm
 
     def test_func(self):
         comment = self.get_object()
