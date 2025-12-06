@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'post-list' %}">Home</a></li>
+            {% if user.is_authenticated %}
+                <li><a href="{% url 'post-create' %}">New Post</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+                <li><a href="{% url 'logout' %}">Logout</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Login</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h1>All Posts</h1>
+    {% for post in posts %}
+        <article>
+            <h2>
+                <a href="{% url 'post-detail' post.pk %}">
+                    {{ post.title }}
+                </a>
+            </h2>
+            <small>by {{ post.author.username }} | {{ post.published_date }}</small>
+            <p>{{ post.content|truncatewords:20 }}</p>
+        </article>
+        <hr>
+    {% empty %}
+        <p>No posts yet.</p>
+    {% endfor %}
+</div>
+
+<footer>Django Blog</footer>
+</body>
+</html>

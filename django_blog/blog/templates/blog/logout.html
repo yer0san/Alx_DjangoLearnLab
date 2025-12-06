@@ -10,7 +10,7 @@
     <header>
         <nav>
             <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'post-list' %}">Home</a></li>
                 <li><a href="{% url 'profile' %}">Profile</a></li>
             </ul>
         </nav>
@@ -22,7 +22,7 @@
         <form method="post">
             {% csrf_token %}
             <button type="submit">Yes, Logout</button>
-            <a href="{% url 'home' %}">Cancel</a>
+            <a href="{% url 'post-list' %}">Cancel</a>
         </form>
     </div>
 

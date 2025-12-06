@@ -1,0 +1,17 @@
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/styles.css' %}">
+
+<header>...</header>
+
+<div class="content">
+    <h1>{{ object.title }}</h1>
+    <p>{{ object.content }}</p>
+    <small>by {{ object.author.email }}</small>
+
+    {% if user == object.author %}
+        <p>
+            <a href="{% url 'post-update' object.pk %}">Edit</a> |
+            <a href="{% url 'post-delete' object.pk %}">Delete</a>
+        </p>
+    {% endif %}
+</div>

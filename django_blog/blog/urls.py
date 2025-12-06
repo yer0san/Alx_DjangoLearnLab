@@ -2,9 +2,13 @@ from django.urls import path, include
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='home'),
     path('register/', views.register, name='register'),
     path('login/', views.CustomLoginView.as_view(), name='login'),
     path('profile/', views.profile_view, name='profile'),
     path("logout/", views.logout_view, name="logout"),
+    path("", views.PostListView.as_view(), name="post-list"),
+    path("post/<int:pk>/", views.PostDetailView.as_view(), name="post-detail"),
+    path("post/new/", views.PostCreateView.as_view(), name="post-create"),
+    path("post/<int:pk>/edit/", views.PostUpdateView.as_view(), name="post-update"),
+    path("post/<int:pk>/delete/", views.PostDeleteView.as_view(), name="post-delete"),
 ]
