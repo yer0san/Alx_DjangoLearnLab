@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Confirm Logout</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'profile' %}">Profile</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>Confirm Logout</h1>
+        <p>Are you sure you want to logout?</p>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit">Yes, Logout</button>
+            <a href="{% url 'home' %}">Cancel</a>
+        </form>
+    </div>
+
+    <footer>
+        &copy; 2025 Django Blog
+    </footer>
+</body>
+</html>
