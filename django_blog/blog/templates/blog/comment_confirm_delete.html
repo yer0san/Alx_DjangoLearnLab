@@ -1,0 +1,33 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Delete Comment</title>
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="{% url 'post-list' %}">Home</a></li>
+        </ul>
+    </nav>
+</header>
+
+<div class="content">
+    <h2>Delete Comment</h2>
+
+    <p>{{ object.content }}</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Confirm Delete</button>
+        <a href="{% url 'post-detail' object.post.pk %}">Cancel</a>
+    </form>
+</div>
+
+<footer>My Django Blog</footer>
+</body>
+</html>
