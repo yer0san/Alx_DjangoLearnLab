@@ -155,10 +155,10 @@ class SearchResultsView(generic.ListView):
         return Post.objects.none()
 
 
-class PostsByTagView(generic.ListView):
+class PostsByTagListView(generic.ListView):
     model = Post
     template_name = "blog/posts_by_tag.html"
     context_object_name = "posts"
 
     def get_queryset(self):
-        return Post.objects.filter(tags__slug=self.kwargs["slug"])
+        return Post.objects.filter(tags__slug=self.kwargs["tag_slug"])
