@@ -23,6 +23,11 @@
 </header>
 
 <div class="content">
+    <form method="GET" action="{% url 'search' %}">
+        <input type="text" name="q" placeholder="Search posts..." required>
+        <button type="submit">Search</button>
+    </form>
+
     <h1>All Posts</h1>
     {% for post in posts %}
         <article>

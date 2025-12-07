@@ -4,6 +4,16 @@
 <header>...</header>
 
 <div class="content">
+    <div class="tags">
+        <strong>Tags:</strong>
+        {% for tag in object.tags.all %}
+            <a href="{% url 'posts-by-tag' tag.slug %}" class="tag">
+                #{{ tag.name }}
+            </a>
+        {% empty %}
+            <span>No tags</span>
+        {% endfor %}
+    </div>
     <h1>{{ object.title }}</h1>
     <p>{{ object.content }}</p>
     <small>by {{ object.author.email }}</small>

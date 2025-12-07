@@ -1,7 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
-from .models import Comment
+from .models import Comment, Post
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -26,3 +26,9 @@ class CommentForm(forms.ModelForm):
                 'placeholder': 'Write your guts out...'
             })
         }
+
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ["title", "content", "tags"]
