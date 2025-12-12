@@ -3,6 +3,8 @@ from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.authtoken.models import Token
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+from django.shortcuts import get_object_or_404
+from .models import CustomUser
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -39,3 +41,56 @@ class ProfileView(APIView):
 
     def get(self, request):
         return Response(UserSerializer(request.user).data)
+    
+
+class FollowUserView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, user_id):
+        target = get_object_or_404(CustomUser, id=user_id)
+        user = request.user
+
+        if user == target:
+            return Response({"detail": "You cannot follow yourself."}, status=400)
+
+        if target in user.following.all():
+            return Response({"detail": "Already following this user."}, status=400)
+
+        user.following.add(target)
+        return Response({"detail": f"You are now following {target.username}."}, status=200)
+
+
+class UnfollowUserView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def post(self, request, user_id):
+        target = get_object_or_404(CustomUser, id=user_id)
+        user = request.user
+
+        if target not in user.following.all():
+            return Response({"detail": "You are not following this user."}, status=400)
+
+        user.following.remove(target)
+        return Response({"detail": f"Unfollowed {target.username}."}, status=200)
+
+
+class FollowersListView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = get_object_or_404(CustomUser, id=user_id)
+        followers = user.followers.all()
+        serializer = UserSerializer(followers, many=True)
+        return Response(serializer.data)
+
+
+class FollowingListView(APIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get(self, request, user_id):
+        user = get_object_or_404(CustomUser, id=user_id)
+        following = user.following.all()
+        serializer = UserSerializer(following, many=True)
+        return Response(serializer.data)
+
+
