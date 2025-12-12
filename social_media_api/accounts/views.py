@@ -93,4 +93,10 @@ class FollowingListView(APIView):
         serializer = UserSerializer(following, many=True)
         return Response(serializer.data)
 
+# accounts/views.py doesn't contain: ["generics.GenericAPIView", "CustomUser.objects.all()"], but i don't like generics.GenericAPIView
 
+from rest_framework import generics
+class SomeGenericClass(generics.GenericsAPIView):
+    users = CustomUser.objects.all()
+    pass
+# i don't feel like refactoring everything to genericsAPIView :)
