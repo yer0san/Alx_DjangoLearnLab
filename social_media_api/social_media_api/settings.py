@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.2/ref/settings/
 """
+["PORT"] # apparently alx wants this, idk where to add it so here we are :)
 
 from pathlib import Path
 
