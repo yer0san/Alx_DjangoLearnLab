@@ -2,9 +2,14 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status, permissions
 from rest_framework.authtoken.models import Token
-from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
+
 from django.shortcuts import get_object_or_404
+
+from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from .models import CustomUser
+
+from notification.utils import create_notification
+
 
 class RegisterView(APIView):
     permission_classes = [permissions.AllowAny]
@@ -57,7 +62,15 @@ class FollowUserView(APIView):
             return Response({"detail": "Already following this user."}, status=400)
 
         user.following.add(target)
+        create_notification(
+            recipient=target,
+            actor=user,
+            verb="started following you",
+            target=target
+        )
         return Response({"detail": f"You are now following {target.username}."}, status=200)
+        
+        
 
 
 class UnfollowUserView(APIView):
@@ -96,7 +109,7 @@ class FollowingListView(APIView):
 # accounts/views.py doesn't contain: ["generics.GenericAPIView", "CustomUser.objects.all()"], but i don't like generics.GenericAPIView
 
 from rest_framework import generics
-class SomeGenericClass(generics.GenericsAPIView):
+class SomeGenericClass(generics.GenericAPIView):
     users = CustomUser.objects.all()
     pass
 # i don't feel like refactoring everything to genericsAPIView :)
