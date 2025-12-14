@@ -9,8 +9,8 @@ from .models import Post, Comment, Like
 from .serializers import PostSerializer, CommentSerializer
 from .permissions import IsAuthorOrReadOnly
 
-from notification.models import Notification
-from notification.utils import create_notification
+from notifications.models import Notification
+from notifications.utils import create_notification
 
 
 class PostViewSet(viewsets.ModelViewSet):

@@ -8,7 +8,7 @@ from django.shortcuts import get_object_or_404
 from .serializers import RegisterSerializer, LoginSerializer, UserSerializer
 from .models import CustomUser
 
-from notification.utils import create_notification
+from notifications.utils import create_notification
 
 
 class RegisterView(APIView):
